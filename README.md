@@ -20,8 +20,8 @@ Easymap is a simple tool designed to make Nmap easier for beginners. Please note
    git clone https://github.com/noursallam/Easymap.git
 2. go to path
    ```bash
-   cd easymap
+   cd Easymap
    
 3. run the project
    ```bash
-   python easymap.py   
+   python nmap_scan.py   
