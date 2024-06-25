@@ -8,15 +8,41 @@ Short description of your project.
 
 ## Installation
 
+markdown
+Copy code
+# Easymap
+
+Easymap is a simple tool designed to make Nmap easier for beginners. Please note that it's still in the development phase.
+
+## Installation
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/noursallam/Easymap.git
+Navigate to the project directory:
 
- 2- go to path 
- ```bash
-    cd easymap
+bash
+Copy code
+cd Easymap
+Run the tool:
 
-3- run the tool
-```bash
-python easymap.py   
+bash
+Copy code
+python easymap.py
+Usage
+Describe how to use the tool here. Include examples if possible.
 
+bash
+Copy code
+# Example usage
+python easymap.py --scan-type quick --target 192.168.1.1
+Contributing
+Explain how others can contribute to your project.
+
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+javascript
+Copy code
+
+Copy this entire text and paste it into your README file. Make sure to customize the `Usag
