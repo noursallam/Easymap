@@ -15,3 +15,8 @@ Short description of your project.
  2- go to path 
  ```bash
     cd easymap
+
+3- run the tool
+```bash
+python easymap.py   
+
