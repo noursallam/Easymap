@@ -2,22 +2,12 @@
 
 simple tool to make nmap simple for beginners (still in development phase )
 
-Clone the Repository
-Clone the repository from GitHub:
+# Project Name
 
-bash
-Copy code
-git clone https://github.com/your_username/your_repository.git
-cd your_repository
-Usage
-Navigate to the directory where the script is located:
+Short description of your project.
 
-bash
-Copy code
-cd path/to/your_repository
-Run the script:
+## Installation
 
-bash
-Copy code
-python your_script.py
-Follow the prompts to select an option from the menu and provide the necessary inputs (IP address and ports).
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/yourproject.git
