@@ -1,9 +1,13 @@
 import subprocess
 import time
+import socket
+
 
 def print_with_delay(message, delay=2):
     print(message)
     time.sleep(delay)
+
+########################################################################################################
 
 def check_nmap_exist():
     try:
@@ -12,8 +16,8 @@ def check_nmap_exist():
         return True
     except (subprocess.CalledProcessError, FileNotFoundError):
         while True:
-            print_with_delay('You do not have nmap installed. Install it? (y/n)')
-            install = input().strip().lower()
+            print_with_delay('Please install nmap first or use this on Linux')
+            install = input("Do you want to install nmap? (y/n): ").strip().lower()
             if install == 'y':
                 print_with_delay("Installing nmap...")
                 # Code to install nmap goes here
@@ -22,6 +26,8 @@ def check_nmap_exist():
                 return False
             else:
                 print("Invalid input. Please enter 'y' to install or 'n' to skip.")
+
+########################################################################################################
 
 def print_nmap_option_info(option_number):
     nmap_options = {
@@ -158,6 +164,8 @@ def print_nmap_option_info(option_number):
         print("Invalid option number. Please try again.")
         return None
 
+########################################################################################################
+
 def print_menu():
     print("|EASYMAP Options Guide")
     print("------------------")
@@ -184,7 +192,9 @@ def print_menu():
     print("0. Exit")
     print("------------------")
 
-def print_flag():
+########################################################################################################
+
+def easymap_flag():
     flag = """
 ███████  █████  ███████ ██    ██     ███    ███  █████  ██████  
 ██      ██   ██ ██       ██  ██      ████  ████ ██   ██ ██   ██ 
@@ -195,33 +205,57 @@ by/nour sallam  https://github.com/noursallam
     """
     print(flag)
 
-if __name__ == "__main__":
-    if check_nmap_exist():
-        print_flag()
-        print_menu()
-        while True:
-            try:
-                choice = int(input("Enter the number of the option you want to learn about (0 to exit): "))
-                if choice == 0:
-                    print("Exiting Nmap Options Guide. Goodbye!")
-                    break
-                else:
-                    option = print_nmap_option_info(choice)
-                    if option:
-                        print('Do you want to perform this scan? (y/n): ')
-                        answer = input().strip().lower()
-                        if answer == 'y':
-                            print('Enter the target IP: ')
-                            ip = input().strip()
-                            print('Enter the port(s) (comma-separated for multiple ports or leave blank for all ports): ')
-                            port = input().strip()
-                            scan_command = ['sudo','nmap', option, ip]
-                            if port:
-                                scan_command.extend(['-p', port])
-                            result = subprocess.run(scan_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-                            print_with_delay("Scanning...")
-                            print(result.stdout)
-                            print(result.stderr)
-            except ValueError:
-                print("Invalid input. Please enter a number between 0 and 20.")
+########################################################################################################
 
+def dns_lookup(domain):
+    print("Wait DNS Lookup Tool")
+    try:
+        ip_address = socket.gethostbyname(domain)
+        print(f"Domain: {domain}\t IP Address: {ip_address}")
+    except socket.error as e:
+        print(f"Error: {e}")
+
+########################################################################################################
+
+if __name__ == "__main__":
+    easymap_flag()
+    print('Choose the tool you need:')
+    print('1. DNS Lookup')
+    print('2. EASYMAP')
+    print('0. Exit')
+    
+    choice = input("Enter your choice (0-2): ").strip()
+    
+    if choice == '1':
+        domain_name = input("Enter the domain: ").strip()
+        dns_lookup(domain_name)
+    elif choice == '2':
+        if check_nmap_exist():
+            easymap_flag()
+            print_menu()
+            while True:
+                try:
+                    choice = int(input("Enter the number of the option you want to learn about (0 to exit): "))
+                    if choice == 0:
+                        print("Exiting Nmap Options Guide. Goodbye!")
+                        break
+                    else:
+                        option = print_nmap_option_info(choice)
+                        if option:
+                            answer = input('Do you want to perform this scan? (y/n): ').strip().lower()
+                            if answer == 'y':
+                                ip = input('Enter the target IP: ').strip()
+                                port = input('Enter the port(s) (comma-separated for multiple ports or leave blank for all ports): ').strip()
+                                scan_command = ['sudo', 'nmap', option, ip]
+                                if port:
+                                    scan_command.extend(['-p', port])
+                                result = subprocess.run(scan_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                                print_with_delay("Scanning...")
+                                print(result.stdout)
+                                print(result.stderr)
+                except ValueError:
+                    print("Invalid input. Please enter a number between 0 and 20.")
+    elif choice == '0':
+        print("Exiting. Goodbye!")
+    else:
+        print("Invalid choice. Please enter 0, 1, or 2.")
